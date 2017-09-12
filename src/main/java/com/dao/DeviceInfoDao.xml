@@ -1,0 +1,56 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.DeviceInfoDao">
+    <resultMap id="deviceInfo" type="com.domain.DeviceInfo">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="type" column="type"/>
+        <result property="roomId" column="room_id"/>
+        <result property="model" column="model"/>
+        <result property="photo" column="photo"/>
+        <result property="className" column="class_name"/>
+    </resultMap>
+    <select id="getDeviceInfoList" resultMap="deviceInfo">
+        SELECT * FROM device_info WHERE room_id = #{roomId}
+    </select>
+    <select id="getDeviceInfo" resultMap="deviceInfo">
+        SELECT * FROM device_info WHERE id = #{id}
+    </select>
+    <select id="getClassName" resultType="string">
+        SELECT class_name FROM device_info WHERE id = #{id}
+    </select>
+    <update id="setName">
+        UPDATE device_info SET name = #{name} WHERE id = #{id}
+    </update>
+    <update id="setPhoto">
+        UPDATE device_info set photo = #{photo} WHERE id =#{id}
+    </update>
+    <delete id="removeDeviceInfo">
+        DELETE FROM device_info WHERE id = #{id}
+    </delete>
+
+    <select id="getSupportedDeviceTypeList" resultType="string">
+        SELECT type FROM supported_device
+    </select>
+
+    <select id="getSupportedDeviceModelList" resultType="string">
+        SELECT model FROM supported_device WHERE type = #{type}
+    </select>
+    <insert id="insertDeviceInfo">
+        INSERT device_info(name, type, room_id, model, photo, class_name)
+        VALUES(#{name}, #{type}, #{roomId}, #{model}, #{photo}, #{className})
+    </insert>
+    <select id="getSupportedClassName" resultType="string">
+        SELECT class_name FROM supported_device WHERE type = #{type} and model = #{model}
+    </select>
+    <select id="getMaxId" resultType="long">
+        SELECT max(id) FROM device_info;
+    </select>
+    <select id="getPhoto" resultType="string">
+        SELECT photo FROM device_info WHERE id = #{id};
+    </select>
+    <select id="getAll" resultType="com.domain.DeviceInfo">
+        SELECT * FROM device_info;
+    </select>
+</mapper>

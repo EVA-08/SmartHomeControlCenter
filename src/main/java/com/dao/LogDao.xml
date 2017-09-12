@@ -1,0 +1,15 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.LogDao">
+    <insert id="insertLoginLog">
+        INSERT login_log (username, datetime, ip, result) VALUES
+            (#{username}, #{datetime}, #{ip}, #{result})
+    </insert>
+    <select id="getLoginLogList" resultType="com.domain.LoginLog">
+        SELECT * FROM login_log WHERE id >= (SELECT id FROM login_log LIMIT #{start}, 1) LIMIT #{length};
+    </select>
+    <select id="numLoginLog" resultType="int">
+        SELECT count(id) FROM login_log;
+    </select>
+</mapper>

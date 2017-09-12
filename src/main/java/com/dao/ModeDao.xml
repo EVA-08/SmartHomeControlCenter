@@ -1,0 +1,20 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.ModeDao">
+    <select id="getModeList" resultType="com.domain.Mode">
+        SELECT * FROM mode;
+    </select>
+    <insert id="insertMode">
+        INSERT mode (name, state) VALUES (#{name}, #{state})
+    </insert>
+    <select id="getState" resultType="string">
+        SELECT state FROM mode WHERE id = #{id}
+    </select>
+    <update id="changeMode">
+        UPDATE mode SET name = #{name}, state = #{state} WHERE id = #{id}
+    </update>
+    <delete id="removeMode">
+        DELETE FROM mode WHERE id = #{id}
+    </delete>
+</mapper>

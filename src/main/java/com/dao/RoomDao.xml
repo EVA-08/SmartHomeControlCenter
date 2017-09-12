@@ -1,0 +1,38 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.RoomDao">
+    <resultMap id="room" type="com.domain.Room">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="photo" column="photo"/>
+    </resultMap>
+    <select id="getRoomList" resultMap="room">
+        SELECT * FROM room
+    </select>
+    <select id="getRoom" resultMap="room">
+        SELECT * FROM room WHERE id = #{id}
+    </select>
+    <update id="setPhoto">
+        UPDATE room SET photo = #{photo} WHERE id = #{id}
+    </update>
+    <update id="setName">
+        UPDATE room SET name = #{name} WHERE id = #{id}
+    </update>
+
+    <insert id="insertRoom">
+        INSERT room(name, photo) VALUES (#{name}, #{photo})
+    </insert>
+    <select id="getMaxId" resultType="long">
+        SELECT max(id) FROM room
+    </select>
+    <delete id="removeRoom">
+        DELETE FROM room WHERE id = #{id}
+    </delete>
+    <select id="getDevicesCount" resultType="int">
+        SELECT count(id) FROM device_info WHERE room_id = #{roomId}
+    </select>
+    <select id="getPhoto" resultType="string">
+        SELECT photo FROM room WHERE id = #{id};
+    </select>
+</mapper>
